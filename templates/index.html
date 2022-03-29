@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission to Mars</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" 
+                    data-toggle="collapse" data-target="#collapse-mars-nav" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="/">Home</a>
+            </div>
+            <div class="collapse navbar-collapse" id="collapse-mars-nav">
+                <form class="navbar-form navbar-right">
+                    <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                  </form>
+                <button type="button" class="btn btn-default navbar-btn
+                    navbar-left"
+                    href="/scrape"> Scrape New Data
+                </button>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="jumbotron text-center" style="background-color: #c97848;">
+            <h1>Mission to Mars</h1>
+            <button type="button" class="btn btn-primary btn-lg" 
+            style="background-color: #0f77b0"
+            href="/scrape"> Scrape New Data
+        </button>
+        </div>
+
+        <!-- Mars News -->
+        <div class="row" id="mars_news">
+            <div class="col-md-12" style="background-color:#fadfa2;">
+                <div class="media">
+                    <div class="media-body">
+                        <h2 style="color:cadetblue;">Latest Mars News</h2>
+                        <h4 class="media-heading">{{mars.news_title}}</h4>
+                        <p>{{mars.news_p}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section for Featured Image and Facts table -->
+        <!-- First level -->
+        <div class="row" id="mars-featured-image" style="background-color:rgb(182, 180, 180);">
+            <!-- Second level -->
+            <div class="col-md-8">
+                <h3 style="color:white;">Featured Mars Image</h3>
+                <img src="{{mars.featured_image | default('static/images/error.png', true)}}" class="img-responsive"
+                    alt="Responsive image" />
+            </div>
+
+            <div class="col-md-4" >
+                <!-- Mars Facts -->
+                <div class="row"  id="mars-facts">
+                    <h3 style="color:white;">Mars Facts</h3>
+                    {{ mars.facts | safe }}
+                </div>
+            </div>
+
+            <!-- Section for Mars Hemispheres -->
+            <div class="panel-group" id="mars-hemispheres">
+                {% for hemisphere in mars.hemispheres %}
+                <div class="panel panel-default col-sm-3">
+                  <div class="panel-body">
+                    <div class="thumbnail">
+                        <img src="{{hemisphere.img_url | default('static/images/error.png', true)}}"
+                            alt="Responsive image" class="img-responsive">
+                        <div class="caption">
+                            <h5>{{hemisphere.title}}</h5>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" 
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" 
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
